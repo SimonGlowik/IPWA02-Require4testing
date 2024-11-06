@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:body>
+    <p:menubar styleClass="navbar">
+        <p:menuitem value="Login" outcome="login" icon="pi pi-home"
+                    styleClass="#{view.viewId eq '/login.xhtml' ? 'ui-state-active' : ''}" />
+
+        <p:menuitem value="Requirement Management" outcome="requirement" icon="pi pi-book"
+                    styleClass="#{view.viewId eq '/requirement.xhtml' ? 'ui-state-active' : ''}" />
+
+        <p:menuitem value="Test Case Management" outcome="testcase_creator" icon="pi pi-check-square"
+                    styleClass="#{view.viewId eq '/testcase_creator.xhtml' ? 'ui-state-active' : ''}" />
+
+        <p:menuitem value="Test Run Management" outcome="testmanager" icon="pi pi-cog"
+                    styleClass="#{view.viewId eq '/testmanager.xhtml' ? 'ui-state-active' : ''}" />
+        <p:menuitem value="Tester Management" outcome="tester" icon="pi pi-cog"
+                    styleClass="#{view.viewId eq '/tester.xhtml' ? 'ui-state-active' : ''}" />
+
+        <p:menuitem value="Logout" outcome="login" icon="pi pi-door-open"
+                    styleClass="#{view.viewId eq '/login.xhtml' ? 'ui-state-active' : ''}" />
+    </p:menubar>
+</h:body>
+</html>

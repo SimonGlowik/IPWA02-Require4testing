@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets" >
+
+<h:head>
+  <link rel="stylesheet" type="text/css" media="screen" href="style.css"/>
+  <title>Testrun Management</title>
+</h:head>
+<ui:include src="/navbar.xhtml" />
+
+<h:body>
+  <!-- Redirect to login if not authenticated -->
+  <f:event type="preRenderView" listener="#{loginController.checkLogin}"/>
+
+<h:panelGroup rendered="#{loginController.hasRole('testmanager')}">
+
+  <h1>Create New Testrun</h1>
+  <h:form>
+    <p:panelGrid columns="2" style="margin-bottom: 20px;">
+      <p:outputLabel for="name" value="Testrun Name:" />
+      <p:inputText id="name" value="#{testrunController.testrun.name}" required="true" />
+
+      <p:outputLabel for="description" value="Description:" />
+      <p:inputTextarea id="description" value="#{testrunController.testrun.description}" rows="4" cols="40" required="true" />
+
+      <p:outputLabel for="status" value="Status:" />
+      <p:selectOneMenu id="status" value="#{testrunController.testrun.status}">
+        <f:selectItems value="#{testrunController.statusOptions}" var="status" itemLabel="#{status}" itemValue="#{status}" />
+      </p:selectOneMenu>
+
+      <p:outputLabel for="assignee" value="Assignee:" />
+      <p:inputText id="assignee" value="#{testrunController.testrun.assignee}" required="true" />
+
+      <p:outputLabel for="testCases" value="Test Cases:" />
+      <p:selectManyCheckbox id="testCases" value="#{testrunController.testrun.testCases}" layout="pageDirection" converter="#{testCaseConverter}">
+        <f:selectItems value="#{testrunController.testCasesList}" var="tc" itemLabel="#{tc.name}" itemValue="#{tc}" />
+      </p:selectManyCheckbox>
+    </p:panelGrid>
+
+    <!-- Save button with page refresh after completion -->
+    <p:commandButton action="#{testrunController.saveTestrun}" value="Save Testrun" />
+  </h:form>
+
+  <!-- Section for displaying the status overview of all test runs -->
+  <h2>Overview of All Test Runs</h2>
+  <h:form>
+    <p:dataTable id="testrunTable" value="#{testrunController.allTestruns}" var="testrun" styleClass="p-datatable-gridlines">
+      <p:column headerText="Name">
+        <h:outputText value="#{testrun.name}" />
+      </p:column>
+
+      <p:column headerText="Description">
+        <h:outputText value="#{testrun.description}" />
+      </p:column>
+
+      <p:column headerText="Status">
+        <h:outputText value="#{testrun.status}" />
+      </p:column>
+
+      <p:column headerText="Assignee">
+        <h:outputText value="#{testrun.assignee}" />
+      </p:column>
+
+      <p:column headerText="Test Cases">
+        <h:outputText value="#{testrun.testCases.size()}" />
+      </p:column>
+    </p:dataTable>
+  </h:form>
+</h:panelGroup>
+
+  <h:panelGroup rendered="#{!loginController.hasRole('testmanager')}">
+    <h:outputText value="Unauthorized Access. You do not have permission to access this page."
+                  style="color: red; font-weight: bold; margin-top: 20px;" />
+  </h:panelGroup>
+</h:body>
+</html>
