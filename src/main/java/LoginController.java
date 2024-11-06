@@ -6,7 +6,6 @@ import jakarta.faces.component.UIInput;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.event.ComponentSystemEvent;
 import jakarta.faces.validator.ValidatorException;
-import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 
@@ -31,16 +30,10 @@ public class LoginController implements Serializable {
         }
     }
 
-    // TODO: diese Wert sollte aus einer Konfiguration kommen.
-    //       Jede Installation sollte eine Unterschiedlich haben.
-    //       Dieser Salt muss geheim bleiben.
     private static final String salt = "vXsia8c04PhBtnG3isvjlemj7Bm6rAhBR8JRkf2z";
 
-    // das sind die text-felder (zB, um zu den Benutzern zu zeigen)
     String user, password;
-    // dieses Feld ist für die Lagerung in den Validierungsstufen
     String tempUsername;
-    // dieser Feld ist für die Anzeige zu den Benutzern das nächste Mal
     String failureMessage = "";
 
     public String getUser() {
@@ -57,14 +50,6 @@ public class LoginController implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getFailureMessage() {
-        return failureMessage;
-    }
-
-    public void setFailureMessage(String failureMessage) {
-        this.failureMessage = failureMessage;
     }
 
     public String logout() {

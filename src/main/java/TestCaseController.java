@@ -89,9 +89,4 @@ public class TestCaseController implements Serializable {
         }
         return null;
     }
-
-    public List<TestCase> getAllTestCases() {
-        Query query = entityManager.createQuery("SELECT tc FROM TestCase tc", TestCase.class);
-        return query.getResultList();
-    }
 }

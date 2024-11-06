@@ -1,9 +1,6 @@
-import jakarta.enterprise.context.RequestScoped;
 import jakarta.enterprise.context.SessionScoped;
-import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import jakarta.persistence.*;
-import jakarta.transaction.Transactional;
 
 import java.io.Serializable;
 import java.util.List;
@@ -46,12 +43,6 @@ public class RequirementController implements Serializable {
             return "requirementList.xhtml?faces-redirect=true";  // Redirect after save
         }
         return null;
-    }
-
-    // Retrieve all requirements
-    public List<Requirement> getAllRequirements() {
-        Query query = entityManager.createQuery("SELECT r FROM Requirement r", Requirement.class);
-        return query.getResultList();
     }
 
     public Requirement findRequirementById(Long id) {
